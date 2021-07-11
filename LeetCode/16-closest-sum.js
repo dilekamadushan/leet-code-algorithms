@@ -7,7 +7,6 @@ var threeSumClosest = function (nums, target) {
     nums = nums.sort((a, b) => a - b)
     const size = nums.length;
     console.log("Sorted array" + nums)
-    //  return recursive(nums, 0, [], [])
 
     let minDifference = null
     let maxSum = null;
@@ -25,7 +24,7 @@ var threeSumClosest = function (nums, target) {
                     previousDifference = tempDifference;
                     // console.log(i,j,k,nums[i],nums[j],nums[k])
 
-                } else if (previousDifference!==null && tempDifference > previousDifference) {
+                } else if (previousDifference !== null && tempDifference > previousDifference) {
                     console.log("returning", maxSum, tempSum, minDifference, tempDifference, i, j, k)
                     break;
                 }
