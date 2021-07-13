@@ -1,0 +1,54 @@
+/**
+ * @param {number[]} nums
+ * @return {number[][]} //123
+ */
+var permute = function(nums) {
+    return swap(nums,0,[])
+};
+
+const swap = (nums)=>{
+    console.log("start",nums)
+    if(nums.length===0){
+        return nums;
+    }
+    if(nums.length===1){
+        return nums;
+    }
+
+    const first = nums[0].toString()
+    console.log("first",first)
+    const rest = swap(nums.slice(1))
+    console.log("rest",rest)
+    const solutions = []
+    for(let i=0;i<rest.length;i++){
+        const temp = rest[i].toString()
+        console.log("temp",temp)
+        solutions.push(first.concat(temp))
+        for(let j=0;j<temp.length;j++){
+            const modified =temp[j].concat(first);
+            console.log("modified",modified)
+            const currentAns = temp.replace(temp[j],modified)
+            console.log("currentAns",currentAns)
+            solutions.push((currentAns))
+
+        }
+    }
+    return solutions;
+
+}
+
+const convertToInt=(string)=>{
+    const arr=[];
+    for(let i of string){
+        if(!isNaN(i)){
+            arr.push(parseInt(i))
+        }
+
+    }
+    return arr.reverse();
+}
+
+console.log(permute([1,2,3]))
+
+//[1,2,3]
+/// 1,2,3 1,3,2
