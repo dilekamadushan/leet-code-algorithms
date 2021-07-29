@@ -38,6 +38,9 @@ const swap = (nums) => {
 }
 
 const convertToInt = (nums) => {
+    console.log("Before processing", nums)
+    if(nums.length===0) return nums;
+    if(nums.length===1) return [nums];
     const answer = [];
     for (let string of nums){
         const arr = [];
@@ -53,7 +56,7 @@ const convertToInt = (nums) => {
     return answer;
 }
 
-console.log(permute([1,2,3]));
+console.log(permute([0,1,1]));
 
 //[1,2,3]
 /// 1,2,3 1,3,2
