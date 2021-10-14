@@ -7,7 +7,6 @@ var permute = function (nums) {
 };
 
 const swap = (nums) => {
-    console.log("start", nums)
     if (nums.length === 0) {
         return nums;
     }
@@ -16,19 +15,15 @@ const swap = (nums) => {
     }
 
     const first = [nums[0]]
-    console.log("first", first)
     const rest = swap(nums.slice(1))
-    console.log("rest", rest)
     const solutions = []
     for (let i = 0; i < rest.length; i++) {
         const temp = rest[i]
-        console.log("temp", temp)
-        solutions.push([...first,...temp])
+        solutions.push([...first, ...temp])
         for (let j = 0; j < temp.length; j++) {
-            const left = temp.slice(0,j+1);
-            const right = temp.slice(j+1)
-            const newAns = [...left,...first,...right]
-            console.log("new ans", newAns)
+            const left = temp.slice(0, j + 1);
+            const right = temp.slice(j + 1)
+            const newAns = [...left, ...first, ...right]
             solutions.push(newAns)
 
         }
@@ -38,6 +33,3 @@ const swap = (nums) => {
 }
 
 console.log(permute([]));
-
-//[1,2,3]
-/// 1,2,3 1,3,2

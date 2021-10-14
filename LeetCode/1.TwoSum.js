@@ -1,16 +1,15 @@
-var twoSum = function(nums, target) {
+var twoSum = function (nums, target) {
     let map = new Map();
-    for(let i=0; i< nums.length; i++){
+    for (let i = 0; i < nums.length; i++) {
         let checkValue = target - nums[i];
-        if(map.has(checkValue)){
+        if (map.has(checkValue)) {
             return [map.get(checkValue), i]
-        }
-        else {
-            map.set(nums[i],i);
+        } else {
+            map.set(nums[i], i);
         }
     }
     return undefined;
 };
 
-const answer = twoSum([3,3], 6);
+const answer = twoSum([3, 3], 6);
 console.log(answer);

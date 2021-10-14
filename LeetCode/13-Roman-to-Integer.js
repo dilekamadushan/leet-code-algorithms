@@ -1,12 +1,11 @@
 var romanToInt = function (s) {
-    let i = s.length-2
-    let current = convertToInteger(s[s.length-1])
+    let i = s.length - 2
+    let current = convertToInteger(s[s.length - 1])
     let sum = current;
-    while (i>=0) {
-        console.log("Considering "+s[i])
+    while (i >= 0) {
         let next = convertToInteger(s[i]);
         if (next < current) {
-            sum = sum  - next;
+            sum = sum - next;
         } else {
             sum = sum + next
             current = next
@@ -19,7 +18,6 @@ var romanToInt = function (s) {
 };
 
 const convertToInteger = (roman) => {
-    let value = 0;
     switch (roman) {
         case "I":
             value = 1

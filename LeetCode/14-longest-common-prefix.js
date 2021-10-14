@@ -2,22 +2,19 @@
  * @param {string[]} strs
  * @return {string}
  */
-var longestCommonPrefix = function(strs) {
+var longestCommonPrefix = function (strs) {
 
-    const min =  strs.reduce((a, b) => a.length <= b.length ? a : b)
-    console.log("min "+min);
-    let commonPrefix ="";
-    let temp='';
-    for(let i=0;i< min.length; i++){
-        temp +=min[i];
+    const min = strs.reduce((a, b) => a.length <= b.length ? a : b)
+    let commonPrefix = "";
+    let temp = '';
+    for (let i = 0; i < min.length; i++) {
+        temp += min[i];
 
-        const element = strs.find(s => !(s.includes(temp) && 0===s.indexOf(temp)));
+        const element = strs.find(s => !(s.includes(temp) && 0 === s.indexOf(temp)));
 
-        if(!element){
-            commonPrefix+=min[i];
-        }
-        else {
-            console.log("No common prefix:"+commonPrefix);
+        if (!element) {
+            commonPrefix += min[i];
+        } else {
             return commonPrefix
         }
 
@@ -25,6 +22,4 @@ var longestCommonPrefix = function(strs) {
     return commonPrefix;
 
 };
-
-console.log(longestCommonPrefix(["flower","flow","flight",""]));
 

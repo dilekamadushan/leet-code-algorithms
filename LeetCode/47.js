@@ -4,11 +4,10 @@
  */
 var permuteUnique = function (nums) {
     const map = new Map();
-    return swap(nums,map, 0, []);
+    return swap(nums, map, 0, []);
 };
 
-const swap = (nums,map) => {
-    console.log("start", nums)
+const swap = (nums, map) => {
     if (nums.length === 0) {
         return nums;
     }
@@ -17,35 +16,23 @@ const swap = (nums,map) => {
     }
 
     const first = [nums[0]]
-    console.log("first", first)
-    const rest = swap(nums.slice(1),map)
-    console.log("rest", rest)
+    const rest = swap(nums.slice(1), map)
     const solutions = []
     for (let i = 0; i < rest.length; i++) {
         const temp = rest[i]
-        console.log("temp", temp)
-        const newElem = [...first,...temp]
-        if(!map.has(newElem.toString())){
-            console.log("pushing", newElem)
-            for (let [key, value] of map) {
-                console.log('key in map'+key)
-            }
+        const newElem = [...first, ...temp]
+        if (!map.has(newElem.toString())) {
             solutions.push(newElem);
-            map.set(newElem.toString(),"")
+            map.set(newElem.toString(), "")
         }
 
         for (let j = 0; j < temp.length; j++) {
-            const left = temp.slice(0,j+1);
-            const right = temp.slice(j+1)
-            const newAns = [...left,...first,...right]
-            console.log("new ans", newAns)
-            if(!map.has(newAns.toString())){
-                console.log("pushing", newAns)
-                for (let [key, value] of map) {
-                    console.log('key in map'+key)
-                }
+            const left = temp.slice(0, j + 1);
+            const right = temp.slice(j + 1)
+            const newAns = [...left, ...first, ...right]
+            if (!map.has(newAns.toString())) {
                 solutions.push(newAns)
-                map.set(newAns.toString(),"")
+                map.set(newAns.toString(), "")
             }
 
         }
@@ -54,7 +41,4 @@ const swap = (nums,map) => {
 
 }
 
-console.log(permuteUnique([1,1]));
-
-//[1,2,3]
-/// 1,2,3 1,3,2
+console.log(permuteUnique([1, 1]));
