@@ -6,6 +6,7 @@
  * Output: [[2,2,2,2],[2,3,3],[3,5]]
  */
 var combinationSum = function (candidates, target) {
+    candidates.sort((a, b)=> a-b);
     return recursiveSeeker(0, candidates, target, [], [], 0)
 
 };
@@ -54,5 +55,5 @@ getSum = (arr) => {
     return arr.reduce((a, b) => a + b, 0);
 };
 
-console.log('Answers from function', (combinationSum([2, 3, 5], 8)));
+console.log('Answers from function', (combinationSum([2,7,6,3,5,1], 9)));
 
