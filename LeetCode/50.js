@@ -4,8 +4,7 @@
  * @return {number}
  */
 var myPow = function(x, n) {
-    console.log(x.countDecimals())
-    return Math.pow(x,n).toFixed();
+    return Math.pow(x,n).toFixed(5);
 
 };
 
@@ -15,4 +14,4 @@ Number.prototype.countDecimals = function () {
     return this.toString().split(".")[1].length || 0;
 }
 
-console.log(myPow(2,-2));
+console.log(myPow(2.00000,-2));
