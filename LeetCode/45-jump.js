@@ -6,7 +6,7 @@
 var jump = function (nums) {
     // if only one element no need to jump
     if (!nums || nums.length === 1 || nums.length === 0) return 0;
-    if(nums[0]===0) return Infinity;
+    if (nums[0] === 0) return Infinity;
     let totalJumps = 0;
     let currentStep = 0;
     // if he can jump with the current step
@@ -16,13 +16,17 @@ var jump = function (nums) {
     while (!isFinished) {
         if (nums[currentStep] === 1) {
             currentStep++;
-        } else {
-            let nextIndex = getNextOptimalPoint(nums, currentStep, nums[currentStep])
-            const firstAns = totalJumps + 1 + jump(nums.slice(currentStep + nums[currentStep]));
-            const secondAns = totalJumps + 1 + jump(nums.slice(currentStep+nums[nextIndex]));
-            if (firstAns < secondAns) return firstAns;
-            return secondAns;
-
+        } else if (nums[currentStep] === 0) return Infinity;
+        else {
+            const possibleJumps = nums.slice(currentStep + 1, currentStep + 1 + nums[currentStep]);
+            let minimumJump = totalJumps + 1 + jump(nums.slice(currentStep + nums[currentStep]));
+            for (let i = 0; i < possibleJumps.length; i++) {
+                const tempAns = totalJumps + 1 + jump(nums.slice(currentStep + 1 + i))
+                if (tempAns < minimumJump) {
+                    minimumJump = tempAns;
+                }
+            }
+            return minimumJump;
         }
 
         totalJumps++;
@@ -51,18 +55,4 @@ var jump = function (nums) {
 
 };
 
-const getNextOptimalPoint = (arr, startIndex, step) => {
-    if (step === 0) return undefined;
-    let optimalStep = 0;
-    let tempMax = 0;
-    arr.slice(startIndex + 1, startIndex + 1 + step)
-        .forEach((element, index) => {
-            if (element >= tempMax) {
-                optimalStep = index + startIndex + 1;
-                tempMax = element;
-            }
-        });
-    return optimalStep;
-}
-
-console.log(jump([5,9,3,2,1,0,2,3,3,1,0,0]))
+console.log(jump([5,6,4,4,6,9,4,4,7,4,4,8,2,6,8,1,5,9,6,5,2,7,9,7,9,6,9,4,1,6,8,8,4,4,2,0,3,8,5]))
