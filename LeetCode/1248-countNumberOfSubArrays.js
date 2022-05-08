@@ -34,17 +34,4 @@ const transformArray = (arr)=>
 const countSum = (arr)=>
     arr.filter(num=> num===1).length
 ;
-
-const countOdd = (arr)=> {
-   const count = arr.filter(num => num%2===1).length
-    return count;
-};
-
-const getFirstIndex = arr =>{
-    for(let i=0; i< arr.length;i++){
-        if (arr[i]%2===1) return i;
-    }
-    return undefined;
-}
-
 console.log(numberOfSubarrays([2,2,2,1,2,2,1,2,2,2],2));

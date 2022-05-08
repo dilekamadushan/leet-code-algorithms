@@ -13,86 +13,56 @@ var jump = function (nums) {
 const jumpRecursive = (nums, startIndex, map) => {
     // if only one element no need to jump
     if (!nums || nums.length === 1 || nums.length === 0) return 0;
-    let currentStep = startIndex;
 
-    if (nums[currentStep] === 0) {
-        map.set(currentStep, Infinity);
+    if (nums[startIndex] === 0) {
+        map.set(startIndex, Infinity);
         return Infinity;
     }
     if (map.has(startIndex)) {
-        const value = map.get(startIndex)
-       // console.log(`the value for ${startIndex} already calculated: ${value}`)
-        return value;
+        return map.get(startIndex);
     }
-    // if he can jump with the current step
-    if (nums.length  <= nums[currentStep]+currentStep+1) {
-        map.set(currentStep, 1);
+    if (nums.length <= nums[startIndex] + startIndex + 1) {
+        map.set(startIndex, 1);
         return 1;
     }
 
-    let totalJumps = 0;
-
-
-    const maxLength = nums.length;
-    let isFinished = false;
-    while (!isFinished) {
-        if (map.has(currentStep)) {
-            return map.get(currentStep);
-        }
-        if (nums[currentStep] === 1) {
-            currentStep++;
-            totalJumps++;
-
-            const maxJumpPossible = nums [currentStep];
-            if (!maxJumpPossible) {
-                isFinished = false;
-                totalJumps++
-                map.set(startIndex, totalJumps);
-                return totalJumps;
+    const endIndex = startIndex + nums[startIndex] < nums.length ? startIndex + nums[startIndex] : nums.length - 1
+    const possibleJumps = nums.slice(startIndex + 1, endIndex);
+    let minimumJump = 1 + jumpRecursive(nums, endIndex, map);
+    for (let i = 0; i < possibleJumps.length; i++) {
+        if (map.has(startIndex + 1 + i)) {
+            const tempAns = 1 + map.get(startIndex + 1 + i);
+            if (tempAns < minimumJump) {
+                minimumJump = tempAns;
             }
-            if (maxJumpPossible > (maxLength - (currentStep + 1))) {
-                isFinished = false;
-                totalJumps++
-                map.set(startIndex, totalJumps);
-                return totalJumps;
-            }
-            if (maxJumpPossible === (maxLength - (currentStep + 1))) {
-                isFinished = false;
-                totalJumps++
-                map.set(startIndex, totalJumps);
-                return totalJumps;
-            }
-        } else if (nums[currentStep] === 0) {
-            map.set(currentStep, Infinity);
-            return Infinity;
         } else {
-            const endIndex = currentStep + nums[currentStep] < nums.length ? currentStep + nums[currentStep] : nums.length-1
-           // console.log(endIndex)
-            const possibleJumps = nums.slice(currentStep + 1, endIndex);
-            let minimumJump = totalJumps + 1 + jumpRecursive(nums, endIndex, map);
-            for (let i = 0; i < possibleJumps.length; i++) {
-                if (map.has(currentStep + 1 + i)) {
-                    const tempAns = totalJumps+1+ map.get(currentStep + 1 + i);
-                    if (tempAns < minimumJump) {
-                        minimumJump = tempAns;
-                    }
-                } else {
-                    const tempAns = totalJumps + 1 + jumpRecursive(nums, (currentStep + 1 + i), map)
-                    if (tempAns < minimumJump) {
-                        minimumJump = tempAns;
-                    }
-                }
-
+            const tempAns = 1 + jumpRecursive(nums, (startIndex + 1 + i), map)
+            if (tempAns < minimumJump) {
+                minimumJump = tempAns;
             }
-            map.set(startIndex, minimumJump);
-            return minimumJump;
         }
-
 
     }
-
-    return totalJumps;
+    map.set(startIndex, minimumJump);
+    return minimumJump;
 
 };
 
-console.log(`The answer is ${jump([8,6,5,2,1,8,1,8,9,7,1,9,1,0,0,3,2,3,5,8,9,4,3,6,5,9,7,9,9,7,3,0,5,1,4,8,9])}`)
+var jumpTest = function(nums) {
+    let jump = 0;
+    let step = 0;
+    let max = 0;
+    for(let i = 0; i < nums.length-1; i++) {
+        max = Math.max(max,i+nums[i]);
+        if(max <= i ) {
+            return -1;
+        }
+        if(i === step) {
+            jump++;
+            step = max;
+        }
+    }
+    return jump;
+};
+console.log(`The answer is ${jumpTest([3,1,9,0,4,4,8,4,7,0,8,4,3,1,2])}`)
+
