@@ -1,12 +1,6 @@
 /**
  * @param {number[]} nums
  * @return {void} Do not return anything, modify nums in-place instead.
- * 1 2 3
- * 1 3 2
- * 2 1 3
- * 2 3 1
- * 3 1 2
- * 3 2 1
  */
 var nextPermutation = function (nums) {
     const origNumbers = [...nums];
@@ -19,6 +13,13 @@ var nextPermutation = function (nums) {
 
 const recursiveSwap = (nums, result, startIndex, isRecursive) => {
     if (startIndex >= nums.length - 1 || startIndex<0) return;
+    if(startIndex< nums.length-2 && !isRecursive){
+        for (let i = nums.length-2; i > startIndex; i--) {
+            recursiveSwap(nums, result, i, false)
+        }
+    }
+
+
     for (let end = startIndex + 1; end < nums.length; end++) {
         const tempNums = [...nums];
         const swaped = swap(tempNums, result, startIndex, end);
@@ -41,7 +42,7 @@ const swap = (nums, result, start, end) => {
     return nums;
 }
 
-nextPermutation([1, 2, 3])
+nextPermutation([1, 2, 3, 4,5,6])
 
 /**
  * @param {number[]} nums
