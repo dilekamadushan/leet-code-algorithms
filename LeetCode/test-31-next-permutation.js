@@ -26,36 +26,32 @@ var nextPermutation = function (nums) {
         flag[0]=1;
     }
 
-    recursiveSwap(sortedNumbers, result,map, nums.length - 2, true,target,flag);
+    recursiveSwap(sortedNumbers, result,map, nums.length - 2, true);
     console.log(JSON.stringify(result));
-    nums.forEach((element,index)=>{
-        nums[index] = result[result.length-1][index];
-    })
+    console.log(result.length)
 };
 
-const recursiveSwap = (nums, result, map,startIndex, isRecursive, target, flag) => {
-    if (startIndex >= nums.length - 1 || startIndex<0 || flag[0] === 2) return;
+const recursiveSwap = (nums, result, map,startIndex, isRecursive) => {
+    if (startIndex >= nums.length - 1 || startIndex<0) return;
     if(startIndex< nums.length-2 && !isRecursive){
         for (let i = nums.length-2; i > startIndex; i--) {
-            recursiveSwap(nums, result,map, i, false, target, flag)
+            recursiveSwap(nums, result,map, i, false)
         }
     }
 
 
     for (let end = startIndex + 1; end < nums.length; end++) {
         const tempNums = [...nums];
-        if(flag[0]===2) return;
-        const swaped = swap(tempNums, result,map, startIndex, end, target, flag);
-        recursiveSwap(swaped, result,map, startIndex+1, false, target, flag)
+        const swaped = swap(tempNums, result,map, startIndex, end);
+        recursiveSwap(swaped, result,map, startIndex+1, false)
     }
-    if (startIndex === 0 || flag[0]===2) return;
-    if(isRecursive) recursiveSwap(nums, result,map, startIndex - 1, true, target, flag)
+    if (startIndex === 0) return;
+    if(isRecursive) recursiveSwap(nums, result,map, startIndex - 1, true)
 
 
 }
 
-const swap = (nums, result,map, start, end, target, flag) => {
-    if(flag[0]===2) return;
+const swap = (nums, result,map, start, end) => {
     const temp = nums [start];
     nums[start] = nums [end];
     nums [end] = temp;
@@ -66,16 +62,10 @@ const swap = (nums, result,map, start, end, target, flag) => {
     if (!map.has(key)){
         map.set(key,map.size);
         result.push(nums);
-        if(key === target){
-            flag[0] = 1;
-        }
-        else if(flag[0]===1){
-            flag[0]=2;
-        }
     }
     return nums;
 }
 
-const nums = [1,3,2];
+const nums = [1,5,1];
 nextPermutation(nums);
 console.log(nums);
